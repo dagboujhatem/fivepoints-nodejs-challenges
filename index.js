@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+// passport strategy
+const passport = require('./passport/passport');
 // run the cron 
 const userCron = require('./common/crons/users-cron')
 // connect to database
@@ -12,6 +14,7 @@ const todoApi = require('./routes/todoApi');
 const userApi = require('./routes/userApi');
 const mailApi = require('./routes/mailAPI');
 const fileUploadApi = require('./routes/fileUploadApi');
+const authApi = require('./routes/authApi');
 
 // Create express App
 const app = express();
@@ -34,6 +37,7 @@ app.use('/api/v1', todoApi);
 app.use('/api/v1', userApi);
 app.use('/api/v1', mailApi);
 app.use('/api/v1', fileUploadApi);
+app.use('/api/v1', authApi);
 
 // End route section
 
