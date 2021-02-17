@@ -44,4 +44,36 @@ router.delete('/users/enlever-todo-from-user/:idUser/:idTodo', async(req, res) =
     res.json(updatedUser);
 });
 
+//  Others REST APIs (Advanced level)
+/*
+*   $gt ==>  greeter than 
+*   $lt ==> lower than 
+*   $gte ==>  greeter than or equal
+*   $lte ==> lower than or equal
+*/
+
+// Get all Users => supérieur à age
+router.get('/users/age-gt/:age', async(req, res) => {
+    const users = await User.find({ age: { $gt: req.params.age}});
+    res.json(users); 
+});
+
+// Get all Users => inférieur à age
+router.get('/users/age-lt/:age', async(req, res) => {
+    const users = await User.find({ age: { $lt: req.params.age}});
+    res.json(users); 
+});
+
+// Get all Users ( entre les age1 et age2 )
+router.get('/users/age-entre/:age1/:age2', async(req, res) => {
+    const users = await User.find({ age: { $gt: req.params.age1, $lt: req.params.age2}});
+    res.json(users); 
+});
+
+// Get the first User by email
+router.get('/users/get-user-by-email/:email', async(req, res) => {
+    const user = await User.findOne({ email: req.params.email});
+    res.json(user); 
+});
+
 module.exports = router;
