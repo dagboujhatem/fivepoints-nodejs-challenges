@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+// run the cron 
+const userCron = require('./common/crons/users-cron')
 // connect to database
 const connect = require('./database/connect.js');
 // import routes
