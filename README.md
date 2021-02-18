@@ -25,6 +25,10 @@ Le 4ème challenge consiste à réaliser deux apis qui permettent de sauvegarder
 Le 5ème challenge consiste à réaliser une apis qui s’exécute automatiquement et sans
 intéraction chaque 2 minutes.
 
+### Challenge 6 (login + register + JWT with nodejs):
+
+Le 6ème challenge consiste à réaliser l’authentification d’un utilisateur en utilisant les modules passport, passport-http-bearer et jsonwebtoken.
+
 ## Created by DAGBOUJ Hatem: 
 
 Contact : hatem.dagbouj@fivepoints.fr
