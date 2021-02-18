@@ -3,10 +3,11 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
+const passport = require('passport');
 const router = express.Router();
 
 // les API
-router.post('/send-text', async(req, res)=>{
+router.post('/send-text', passport.authenticate("bearer", { session: false }), async(req, res)=>{
     // 1. create transporter 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -25,7 +26,7 @@ router.post('/send-text', async(req, res)=>{
     res.json({message : "E-mail send successfully!"})
 });
 
-router.post('/send-html', async(req, res)=>{
+router.post('/send-html', passport.authenticate("bearer", { session: false }), async(req, res)=>{
     // 1. create transporter 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -44,7 +45,7 @@ router.post('/send-html', async(req, res)=>{
     res.json({message : "E-mail send successfully!"})
 });
 
-router.post('/send-html/:name', async(req, res)=>{
+router.post('/send-html/:name', passport.authenticate("bearer", { session: false }), async(req, res)=>{
     // 1. create transporter 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
