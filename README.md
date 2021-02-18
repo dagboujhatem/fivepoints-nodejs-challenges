@@ -20,6 +20,11 @@ Le 3ème challenge consiste à réaliser une api qui permet d’envoyer un e-mai
 
 Le 4ème challenge consiste à réaliser deux apis qui permettent de sauvegarder et d’envoyer un fichier de type image (jpg, png, gif).
 
+### Challenge 5 (Cron with nodejs):
+
+Le 5ème challenge consiste à réaliser une apis qui s’exécute automatiquement et sans
+intéraction chaque 2 minutes.
+
 ## Created by DAGBOUJ Hatem: 
 
 Contact : hatem.dagbouj@fivepoints.fr
