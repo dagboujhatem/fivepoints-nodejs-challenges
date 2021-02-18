@@ -29,6 +29,10 @@ intéraction chaque 2 minutes.
 
 Le 6ème challenge consiste à réaliser l’authentification d’un utilisateur en utilisant les modules passport, passport-http-bearer et jsonwebtoken.
 
+### Challenge 7 (bcrypt-nodejs with nodejs):
+
+Le 7ème challenge consiste à crypter le mot de passe d’un utilisateur lors de la création en utilisant le module bcrypt-nodejs.
+
 ## Created by DAGBOUJ Hatem: 
 
 Contact : hatem.dagbouj@fivepoints.fr

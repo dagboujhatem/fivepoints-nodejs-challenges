@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const bcrypt = require('bcryptjs');
 const User = require('../models/userSchema');
 const router = express.Router();
 
@@ -26,6 +27,13 @@ router.get('/users/:id', passport.authenticate("bearer", { session: false }), as
 // Add new User
 router.post('/users', passport.authenticate("bearer", { session: false }), async (req, res) => {
     const createdUser = await User.create(req.body);
+       // 1. Hash the password 
+       const salt = bcrypt.genSaltSync(10);
+       const hash = bcrypt.hashSync(req.body.password, salt);
+       // 2. update password
+       createdUser.password = hash;
+       createdUser.save();
+    // 3. send response
     res.json(createdUser);
 });
 
