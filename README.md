@@ -33,11 +33,7 @@ Le 6ème challenge consiste à réaliser l’authentification d’un utilisateur
 
 Le 7ème challenge consiste à crypter le mot de passe d’un utilisateur lors de la création en utilisant le module bcrypt-nodejs.
 
-### Challenge 8 (swagger api documentation with nodejs):
-
-Le 7ème challenge consiste à faire une documentation de votre REST APIs. je vous invite à utiliser le module [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express).
-
-Vous pouvez aussi voir la documentation en tappant `http://<app_host>:<app_port>/api-docs`
+### Challenge 8 (with nodejs):
 
 
 ## Created by DAGBOUJ Hatem: 
