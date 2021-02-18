@@ -29,6 +29,12 @@ intéraction chaque 2 minutes.
 
 Le 6ème challenge consiste à réaliser l’authentification d’un utilisateur en utilisant les modules passport, passport-http-bearer et jsonwebtoken.
 
+### Challenge 7 (swagger api documentation with nodejs):
+
+Le 7ème challenge consiste à faire une documentation de votre REST APIs. je vous invite à utiliser le module [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express).
+
+Vous pouvez aussi voir la documentation en tappant `http://<app_host>:<app_port>/api-docs`
+
 ## Created by DAGBOUJ Hatem: 
 
 Contact : hatem.dagbouj@fivepoints.fr

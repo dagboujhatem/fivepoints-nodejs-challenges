@@ -29,8 +29,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use this line to GET ALL UPLOADED IMAGES
 app.use('/api/v1/uploads', express.static(path.join(__dirname, '/uploads')));
-//
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// SwaggerUi configurations
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', function(req, res, next){
+    swaggerDocument.host = req.get('host');
+    req.swaggerDoc = swaggerDocument;
+    next();
+},swaggerUi.setup(swaggerDocument));
 
 // Routes sections
 // Home Route
