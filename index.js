@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const connect = require('./database/connect.js');
 // import routes
 const todoApi = require('./routes/todoApi');
+const userApi = require('./routes/userApi');
 
 // Create express App
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', async(req,res) => {
 });
 
 app.use('/api/v1', todoApi);
+app.use('/api/v1', userApi);
 
 // End route section
 
