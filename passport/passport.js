@@ -3,6 +3,8 @@ const BearerStrategy = require("passport-http-bearer").Strategy;
 const User = require("../models/userSchema");
 const jwt = require("jsonwebtoken");
 
+// 1ère manière (en utilisant les promises => async/await )
+
 // passport.use(
 //   new BearerStrategy(async (token, done) => {
 //     const tokenData = await jwt.verify(token, 'secret');
@@ -16,6 +18,8 @@ const jwt = require("jsonwebtoken");
 // );
 
 
+// 2ème manière ( en utilisant les callback functions)
+// méthode utilisé dans la documentation : https://www.npmjs.com/package/passport-http-bearer
 passport.use(new BearerStrategy(async(token, done) => {
    const decodedData = await jwt.verify(token, 'secret');
    console.log(decodedData);
