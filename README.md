@@ -12,11 +12,22 @@ Le premier challenge consiste à réaliser le CRUD de Todo. C’est-à-dire, cr�
 
 Le 2ème challenge consiste à réaliser le CRUD de <User>. C’est-à-dire, créer les apis Add,Delete, Update, Retrieve et Retrieve by id de la classe user. Schema user contient : firstName, lastName, age, email, password, todos(tableau) en mettant User et Todo en relation (id seulement) à partir de l’attribut todos dans la schema User. Dans le même projet précédent.
 
+### Challenge 3 (Mail REST APIs): 
+
+Le 3ème challenge consiste à réaliser une api qui permet d’envoyer un e-mail.
+
+### Challenge 4 (Upload images REST APIs): 
+
+Le 4ème challenge consiste à réaliser deux apis qui permettent de sauvegarder et d’envoyer un fichier de type image (jpg, png, gif).
 
 ### Challenge 5 (Cron with nodejs):
 
 Le 5ème challenge consiste à réaliser une apis qui s’exécute automatiquement et sans
 intéraction chaque 2 minutes.
+
+### Challenge 6 (login + register + JWT with nodejs):
+
+Le 6ème challenge consiste à réaliser l’authentification d’un utilisateur en utilisant les modules passport, passport-http-bearer et jsonwebtoken.
 
 ## Created by DAGBOUJ Hatem: 
 
