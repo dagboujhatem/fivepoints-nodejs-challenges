@@ -7,6 +7,7 @@ const connect = require('./database/connect.js');
 // import routes
 const todoApi = require('./routes/todoApi');
 const userApi = require('./routes/userApi');
+const mailApi = require('./routes/mailAPI');
 
 // Create express App
 const app = express();
@@ -25,6 +26,7 @@ app.get('/', async(req,res) => {
 
 app.use('/api/v1', todoApi);
 app.use('/api/v1', userApi);
+app.use('/api/v1', mailApi);
 
 // End route section
 
