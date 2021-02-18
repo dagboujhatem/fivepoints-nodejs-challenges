@@ -9,6 +9,9 @@ const passport = require('./passport/passport');
 const userCron = require('./common/crons/users-cron')
 // connect to database
 const connect = require('./database/connect.js');
+// swaggerUi config
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 // import routes
 const todoApi = require('./routes/todoApi');
 const userApi = require('./routes/userApi');
@@ -26,6 +29,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use this line to GET ALL UPLOADED IMAGES
 app.use('/api/v1/uploads', express.static(path.join(__dirname, '/uploads')));
+//
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes sections
 // Home Route
