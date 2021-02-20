@@ -25,7 +25,8 @@ const UserSchema = new Schema({
     todos: [{ type: Schema.Types.ObjectId, ref: 'todo'}]
     },
     {
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     });
 
 const userModel = mongoose.model('user', UserSchema);

@@ -10,7 +10,8 @@ const todoSchema = new Schema({
         required: [true, 'Description is required.']
     }},
     {
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     });
     
 const todoModel = mongoose.model('todo', todoSchema);

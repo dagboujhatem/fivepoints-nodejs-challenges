@@ -22,7 +22,7 @@ const jwt = require("jsonwebtoken");
 // méthode utilisé dans la documentation : https://www.npmjs.com/package/passport-http-bearer
 passport.use(new BearerStrategy(async(token, done) => {
    const decodedData = await jwt.verify(token, 'secret');
-   console.log(decodedData);
+  //  console.log(decodedData);
     User.findOne({ _id: decodedData.userId }, function (err, user) {
       if (err) { return done(err); }
       if (!user) { return done(null, false); }
