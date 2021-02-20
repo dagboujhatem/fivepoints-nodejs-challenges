@@ -16,6 +16,7 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
     let response = [];
     chats.forEach(chat =>{
         let inbox = {
+            _id: '',
             message: '',
             createdAt: '',
             userName: '',
@@ -30,10 +31,12 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
         if(chat.user1 != null)
         {
             inbox["userName"] = chat.user1.firstName + ' ' + chat.user1.lastName;
+            inbox["_id"] = chat.user1._id;
         }
         if(chat.user2 != null)
         {
             inbox["userName"] = chat.user2.firstName + ' ' + chat.user2.lastName;
+            inbox["_id"] = chat.user2._id;
         }
         // add inbox to response
         response.push(inbox)
