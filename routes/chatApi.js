@@ -52,8 +52,8 @@ router.post('/sendMessage/:idChat', passport.authenticate('bearer', { session: f
 });
 
 //
-router.get('/loadOldMessages/:chatId', passport.authenticate('bearer', { session: false }), async(req,res) => {
-        const chat = await Chat.findById(req.params.chatId).populate('messages'); 
+router.get('/loadOldMessages/:chatId/:limit', passport.authenticate('bearer', { session: false }), async(req,res) => {
+        const chat = await Chat.findById(req.params.chatId).populate({path: 'messages', options: {limit: req.params.limit, sort: { createdAt: -1},}}); 
         res.json(chat.messages)
 });
 
