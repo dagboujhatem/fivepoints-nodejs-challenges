@@ -16,14 +16,13 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
     let response = [];
     let usersIDs = [req.user._id];
     chats.forEach(chat =>{
-        let number_of_message = Math.floor(Math.random() * 10);
         let inbox = {
             _id: '',
             message: '',
             createdAt: '',
             userName: '',
-            hasNotification: true,
-            nubmerOfMessage: number_of_message,
+            hasNotification: false,
+            nubmerOfMessage: 0,
         };
         // message content & createdAt
         if(chat.messages.length >0)
@@ -92,6 +91,7 @@ router.post('/sendMessage/:idChat', passport.authenticate('bearer', { session: f
     const io = req.app.get('io');
     const newMessage = await Message.create(req.body);
     io.emit('newMessageSended', newMessage);
+    io.emit('newMessageNotification', newMessage);
     // update the chat => to perssist messages
     const chat2 = await Chat.findByIdAndUpdate(existingChat._id, { $push: { messages: newMessage._id }}, { new: true});
     // return

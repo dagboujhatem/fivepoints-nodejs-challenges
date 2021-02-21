@@ -34,7 +34,10 @@ app.use('/api/v1/uploads', express.static(path.join(__dirname, '/uploads')));
 const server = http.createServer(app);  
 const io = socketIO(server);
 io.on('connection', (socket) => {
-    console.log('new connection made');
+    console.log('Socket established with id: '+ socket.id);
+});
+io.on('disconnect', (socket) => {
+    console.log('Socket disconnected: '+ socket.id);
 });
 app.set('io', io);
 
