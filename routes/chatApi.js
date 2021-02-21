@@ -8,12 +8,12 @@ const passport = require('passport');
 
 // Get inbox list 
 router.get('/getInboxList', passport.authenticate('bearer', { session: false }), async(req,res) =>{ 
-    // const users = await User.find({ _id: {$ne: req.user._id}}, {firstName: 1, lastName: 1});
     const chats = await Chat.find({$or: [{user1: req.user._id }, {user2: req.user._id}]})
     .populate({ path : 'user1', match: { _id: {$ne: req.user._id}}, select: 'firstName lastName'})
     .populate({ path : 'user2', match: { _id: {$ne: req.user._id}}, select: 'firstName lastName'})
     .populate({path: 'messages', options: {limit: 1, sort: { createdAt: -1}}});
     let response = [];
+    let usersIDs = []
     chats.forEach(chat =>{
         let inbox = {
             _id: '',
@@ -32,15 +32,31 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
         {
             inbox["userName"] = chat.user1.firstName + ' ' + chat.user1.lastName;
             inbox["_id"] = chat.user1._id;
+            usersIDs.push(chat.user1._id);
         }
         if(chat.user2 != null)
         {
             inbox["userName"] = chat.user2.firstName + ' ' + chat.user2.lastName;
             inbox["_id"] = chat.user2._id;
+            usersIDs.push(chat.user2._id);
         }
         // add inbox to response
         response.push(inbox)
     });
+    // get all new users
+    const usersWithoutChat = await User.find({ _id: {$nin: usersIDs}}, {firstName: 1, lastName: 1});
+    usersWithoutChat.forEach(user=>{
+        let inbox = {
+            _id: '',
+            message: '',
+            createdAt: '',
+            userName: '',
+        };
+        inbox["userName"] = user.firstName + ' ' + user.lastName;
+        inbox["_id"] = user._id;
+        // add inbox to response
+        response.push(inbox)
+    })
     res.json(response)
 });
 // This API used to get a Chat between user1 and user2
