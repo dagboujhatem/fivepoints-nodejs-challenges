@@ -12,14 +12,18 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
     .populate({ path : 'user1', match: { _id: {$ne: req.user._id}}, select: 'firstName lastName'})
     .populate({ path : 'user2', match: { _id: {$ne: req.user._id}}, select: 'firstName lastName'})
     .populate({path: 'messages', options: {limit: 1, sort: { createdAt: -1}}});
+    // res.json(chats);
     let response = [];
-    let usersIDs = []
+    let usersIDs = [req.user._id];
     chats.forEach(chat =>{
+        let number_of_message = Math.floor(Math.random() * 10);
         let inbox = {
             _id: '',
             message: '',
             createdAt: '',
             userName: '',
+            hasNotification: true,
+            nubmerOfMessage: number_of_message,
         };
         // message content & createdAt
         if(chat.messages.length >0)
@@ -41,7 +45,7 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
             usersIDs.push(chat.user2._id);
         }
         // add inbox to response
-        response.push(inbox)
+        response.push(inbox);
     });
     // get all new users
     const usersWithoutChat = await User.find({ _id: {$nin: usersIDs}}, {firstName: 1, lastName: 1});
@@ -51,35 +55,31 @@ router.get('/getInboxList', passport.authenticate('bearer', { session: false }),
             message: '',
             createdAt: '',
             userName: '',
+            hasNotification: false,
+            nubmerOfMessage: 0,
         };
         inbox["userName"] = user.firstName + ' ' + user.lastName;
         inbox["_id"] = user._id;
         // add inbox to response
-        response.push(inbox)
+        response.push(inbox);
     })
-    res.json(response)
+    res.json(response);
 });
 // This API used to get a Chat between user1 and user2
 // Create a new Chat if not exist
 router.post('/getOrCreateNewChat/:idUser1/:idUser2', passport.authenticate('bearer', { session: false }), async(req,res) =>{ 
-    const chat1 = await Chat.findOne({user1: req.params.idUser1, user2:req.params.idUser2});
-    if(chat1 !== null)
+    const existingChat = await Chat.findOne({$or:[
+        {user1: req.params.idUser1, user2:req.params.idUser2},
+         {user1: req.params.idUser2, user2:req.params.idUser1}]});
+    if(existingChat !== null)
     {
-        res.json(chat1);
+        res.json(existingChat);
     }
     else{
-        const chat2 = await Chat.findOne({user1: req.params.idUser2, user2:req.params.idUser1});
-        if(chat2 !== null)
-        {
-            res.json(chat2);
-        }
-        else{
-            // Create a new Chat
-            const newChat = await Chat.create({user1: req.params.idUser1, user2: req.params.idUser2, messages: []});
-            res.json(newChat);
-        }
+        // Create a new Chat
+        const newChat = await Chat.create({user1: req.params.idUser1, user2: req.params.idUser2, messages: []});
+        res.json(newChat);
     }
-
 });
 
 // Send message API using socket.io
