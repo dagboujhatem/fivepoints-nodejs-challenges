@@ -101,8 +101,10 @@ router.post('/sendMessage/:idChat', passport.authenticate('bearer', { session: f
 
 //
 router.get('/loadOldMessages/:chatId/:limit', passport.authenticate('bearer', { session: false }), async(req,res) => {
-        const chat = await Chat.findById(req.params.chatId).populate({path: 'messages', options: {limit: req.params.limit, sort: { createdAt: -1}}}); 
-        res.json(chat.messages)
+    // Select only the 100 last messages
+    const chat = await Chat.findById(req.params.chatId).populate({path: 'messages', options: {limit: req.params.limit, sort: { createdAt: -1}}}); 
+    // inverse the message & return response
+    res.json(chat.messages.reverse())
 });
 
 module.exports = router;
