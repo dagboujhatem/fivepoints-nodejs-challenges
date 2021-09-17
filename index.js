@@ -3,6 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+// Swagger imports
+// const swaggerJsDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
+// const swaggerDocument = require('./swagger.json');
+const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('./swagger.json');
+const swagger = require('swagger-express-router');
 // passport strategy
 const passport = require('./passport/passport');
 // run the cron 
@@ -28,6 +35,14 @@ app.use(cors())
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Swagger setup
+const swaggerDocument = require('./swagger.json');
+const useBasePath = true; //whether to use the basePath from the swagger document when setting up the routes (defaults to false)
+const middlewareObj = {
+    'middleware-name1': require('./middleware/swagger-middleware')
+    // 'middleware-name2': require('./middleware/middleware-name2')
+};
+swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath);
 // Use this line to GET ALL UPLOADED IMAGES
 app.use('/api/v1/uploads', express.static(path.join(__dirname, '/uploads')));
 // socketIO configurations
@@ -38,6 +53,10 @@ io.on('connection', (socket) => {
 });
 io.on('disconnect', (socket) => {
     console.log('Socket disconnected: '+ socket.id);
+});
+io.on("typing", (data) => {
+    console.log(data);
+    io.broadcast.emit("typing", data);
 });
 app.set('io', io);
 
